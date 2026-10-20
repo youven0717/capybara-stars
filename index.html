@@ -106,4 +106,45 @@ $('devBtn').onclick=()=>{$('content').innerHTML='<h2>🧪 개발자 코드</h2><
 const v10Style=document.createElement('style');v10Style.textContent=`#victoryCeremony{position:fixed;inset:0;z-index:99999;background:radial-gradient(circle at center,#284f5af7,#081b2bf7);display:flex;align-items:center;justify-content:center;color:#fff;text-align:center;font-family:system-ui,sans-serif}.victoryCard{width:min(92vw,430px);padding:22px;border:3px solid #ffe07b;border-radius:24px;background:linear-gradient(145deg,#224c51,#122a39);box-shadow:0 0 35px #ffd65b66}.victoryTrophies{font-size:clamp(30px,8vw,46px);font-weight:1000;color:#ffe16b;text-shadow:0 3px #8b5425;position:absolute;top:5vh;left:5vw}.victoryDance{font-size:100px;animation:capyVictoryDance .65s infinite alternate;display:inline-block;filter:drop-shadow(0 8px 0 #0004)}.victoryMove{font-size:19px;font-weight:900;color:#b6f8ff}.victoryCard button{background:#ffe16b;color:#382b17;font-size:18px;font-weight:900;border-radius:12px;padding:12px 30px;margin-top:12px}@keyframes capyVictoryDance{from{transform:translateY(0) rotate(-13deg) scale(.95)}to{transform:translateY(-22px) rotate(13deg) scale(1.1)}}.dance-기관단총카피바라{animation:spinVictory .7s infinite alternate}.dance-샷건카피바라{animation:bigJump .55s infinite alternate}.dance-저격총카피바라{animation:sniperPose 1s infinite alternate}.dance-기관총카피바라{animation:fastShake .18s infinite alternate}.dance-로켓런처카피바라{animation:bigJump .4s infinite alternate}.dance-방패카피바라{animation:shieldTurn .8s infinite alternate}.dance-레이저카피바라{animation:spinVictory .5s infinite alternate}.dance-검객카피바라{animation:swordDance .45s infinite alternate}.dance-투척수카피바라{animation:throwDance .55s infinite alternate}.dance-힐러카피바라{animation:softFloat 1s infinite alternate}.dance-시리우스{animation:cosmicDance .35s infinite alternate}@keyframes spinVictory{to{transform:rotate(360deg) scale(1.12)}}@keyframes bigJump{to{transform:translateY(-35px) scale(1.2)}}@keyframes sniperPose{to{transform:translateX(18px) rotate(8deg)}}@keyframes fastShake{to{transform:translateX(7px) rotate(9deg)}}@keyframes shieldTurn{to{transform:rotateY(180deg) scale(1.08)}}@keyframes swordDance{to{transform:rotate(-30deg) translateY(-14px)}}@keyframes throwDance{to{transform:rotate(25deg) translateY(-18px)}}@keyframes softFloat{to{transform:translateY(-18px) scale(1.08)}}@keyframes cosmicDance{to{transform:rotate(22deg) translateY(-28px) scale(1.25);filter:drop-shadow(0 0 20px #b28cff)}}`;
 document.head.appendChild(v10Style);
 
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+  import {
+    getFirestore,
+    collection,
+    addDoc,
+    serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCyryKLlvjQ0A18namye5PMxa_rku8NmlQ",
+    authDomain: "capybara-stars.firebaseapp.com",
+    projectId: "capybara-stars",
+    storageBucket: "capybara-stars.firebasestorage.app",
+    messagingSenderId: "404360387673",
+    appId: "1:404360387673:web:46c427cf7a4e407e4fa548",
+    measurementId: "G-XRDFGSEVLV"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  window.saveCapybaraOnline = async function(nickname, coins) {
+    try {
+      await addDoc(collection(db, "players"), {
+        nickname: String(nickname),
+        coins: Number(coins),
+        updatedAt: serverTimestamp()
+      });
+      alert("온라인 저장 성공!");
+    } catch (error) {
+      console.error(error);
+      alert("저장 실패: Firebase 설정과 데이터베이스 규칙을 확인해 줘.");
+    }
+  };
+
+  console.log("Capybara Stars Firebase 연결 준비 완료!");
+</script>
+</body>
+</html>
+
 })();</script></body></html>
