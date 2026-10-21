@@ -259,7 +259,20 @@ el.querySelector('#v11Online').onclick = () => {
        controls.querySelector('#v11JoinRoom').onclick = async () => {
           controls.querySelector('#v11JoinCode').value
         );
-        message.textContent = '방 참가 성공! 방 코드: ' + code;
+        window.capybaraCurrentRoom = code;
+
+message.textContent = '방 참가 성공! 방 코드: ' + code;
+
+if (window.capybaraRoomUnsubscribe) {
+  window.capybaraRoomUnsubscribe();
+}
+
+window.capybaraRoomUnsubscribe =
+  window.capybaraRooms.watchRoom(code, (room) => {
+    const count = (room.members || []).length;
+    message.textContent =
+      '방 코드: ' + code + ' | 참가자: ' + count + '/6명';
+  });
       } catch (e) {
         message.textContent = '방 참가 실패: ' + e.message;
       }
