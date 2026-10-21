@@ -255,7 +255,26 @@ loadGame();menuUpdate();
 window.addEventListener('load',()=>{setTimeout(()=>{loadingScreen.style.opacity='0';loadingScreen.style.transition='opacity .35s';setTimeout(()=>loadingScreen.remove(),380)},250)});
 })();
 </script>
-<script>
+<script type="module">
+  
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut
+} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+import {
+  getFirestore,
+  doc,
+  setDoc,
+  getDoc,
+  onSnapshot,
+  collection,
+  addDoc,
+  updateDoc
+} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+
 /* 카피바라 스타파워즈 - 팀 배정 화면 */
 document.addEventListener('click', function(e) {
   if (!e.target.closest('#v11Online')) return;
