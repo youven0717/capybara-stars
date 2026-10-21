@@ -438,6 +438,49 @@ console.log("Firebase 연결 준비 완료!");
 
 
 console.log("Firebase 연결 준비 완료!");
+  
+/* 온라인 게임 방 만들기 / 참가하기 */
+window.capybaraRooms = {
+  async createRoom() {
+    const user = auth.currentUser;
+    if (!user) throw new Error("먼저 로그인해 줘.");
+
+    const roomCode = Math.random().toString(36).slice(2, 8).toUpperCase();
+
+    await setDoc(doc(db, "rooms", roomCode), {
+      host: user.uid,
+      members: [user.uid],
+      status: "waiting",
+      createdAt: Date.now()
+    });
+
+    return roomCode;
+  },
+
+  async joinRoom(roomCode) {
+    const user = auth.currentUser;
+    if (!user) throw new Error("먼저 로그인해 줘.");
+
+    const code = roomCode.trim().toUpperCase();
+    const roomRef = doc(db, "rooms", code);
+    const roomSnap = await getDoc(roomRef);
+
+    if (!roomSnap.exists()) throw new Error("그 방을 찾을 수 없어.");
+
+    const members = roomSnap.data().members || [];
+    if (!members.includes(user.uid)) {
+      if (members.length >= 6) throw new Error("방이 꽉 찼어. 최대 6명이야.");
+      await updateDoc(roomRef, {
+        members: [...members, user.uid]
+      });
+    }
+
+    return code;
+  }
+};
+
+console.log("온라인 방 기능 준비 완료!");
+
 </script>
 
 </body>
