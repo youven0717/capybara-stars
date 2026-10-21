@@ -14,12 +14,72 @@ function preview(){if(!hc.width)return;let w=hc.clientWidth,h=hc.clientHeight;hc
 function obsMake(){obs=[];let a=Math.max(50,W*.12),b=Math.max(36,H*.075);[[.28,.34,1,1],[.59,.28,1,1],[.43,.51,.85,1],[.22,.67,.75,1],[.73,.65,1,1]].forEach(([x,y,ww,hh])=>obs.push({x:x*W-a*ww/2,y:y*H-b*hh/2,w:a*ww,h:b*hh}))}function makeObs(){obsMake()}
 function menuUpdate(){$('coins').textContent=coins;$('trophies').textContent=trophies;$('best').textContent=best;$('heroName').textContent=character;$('heroTag').textContent='레벨 '+level+' · '+skin+' 스킨';$('loginBtn').textContent=logged?'로그아웃':'로그인';$('rewardStatus').textContent=claimed?'내일 다시':'받을 수 있음';$('rewardBtn').disabled=claimed;preview()}
 function card(name,desc,cost,type){let have=type==='skin'&&owned.includes(name);return `<div class="item"><b>${name}</b><p>${desc}</p>🪙 ${cost}<button data-buy="${name}" data-type="${type}" ${have||coins<cost?'disabled':''}>${have?'보유 중':'구입'}</button></div>`}
-function panel(k){let title='',body='';if(k==='team'){title='👥 팀 추가 / 온라인 플레이';body=`<p>친구 ID로 추가하고 함께 플레이하세요.</p><label class=field>친구 ID<input id=friendId placeholder=예시_Capy123></label><button class=primary id=addFriend>친구 추가</button><h3>경기 모드</h3><button class=primary id=friendly>⚔️ 친선경기 · 나 대 친구</button><button class=primary id=normal>🏆 일반경기 · 나와 친구 대 상대</button><p id=teamMsg>현재는 화면 미리보기 모드입니다. 실시간 온라인 대결은 서버 연결 후 활성화됩니다.</p>`}else if(k==='mypage'){title='👤 마이 페이지';body=`<h3>${esc(user||'게스트')}</h3><div class=items><div class=item>👥 친구<br><b id=friendCount>0명</b></div><div class=item>🏆 트로피<br><b>${trophies}</b></div><div class=item>🪙 코인<br><b>${coins}</b></div><div class=item>🔥 연승<br><b>0연승</b></div></div><h3>계정 정보</h3><p>이름: ${esc(user||'게스트')}</p><p>계정 상태: ${logged?'데모 로그인':'게스트'}</p><p>친구 목록과 기록 저장은 서버 연결 전까지 이 브라우저의 데모 정보입니다.</p><button class=primary id=profileLogin>로그인 / 이름 설정</button>`}else if(k==='login'){title=logged?'로그아웃':'로그인';body=logged?`<p>${esc(user)}님으로 로그인되어 있어요.</p><button class="primary" id="logoutNow">로그아웃</button>`:`<p>아이디와 비밀번호를 입력하세요. 이 데모는 비밀번호를 저장하거나 서버로 전송하지 않습니다.</p><label class="field">아이디<input id="u" autocomplete="username"></label><label class="field">비밀번호<input id="pw" type="password" autocomplete="current-password"></label><button class="primary" id="loginNow">로그인</button><p style="font-size:11px">실제 계정 인증은 연결되지 않은 미리보기 기능입니다.</p>`}
+function panel(k){let title='',body='';if(k==='team'){title='👥 팀 추가 / 온라인 플레이';body=`<p>친구 ID로 추가하고 함께 플레이하세요.</p><label class=field>친구 ID<input id=friendId placeholder=예시_Capy123></label><button class=primary id=addFriend>친구 추가</button><h3>경기 모드</h3><button class=primary id=friendly>⚔️ 친선경기 · 나 대 친구</button><button class=primary id=normal>🏆 일반경기 · 나와 친구 대 상대</button><p id=teamMsg>현재는 화면 미리보기 모드입니다. 실시간 온라인 대결은 서버 연결 후 활성화됩니다.</p>`}else if(k==='mypage'){title='👤 마이 페이지';body=`<h3>${esc(user||'게스트')}</h3><div class=items><div class=item>👥 친구<br><b id=friendCount>0명</b></div><div class=item>🏆 트로피<br><b>${trophies}</b></div><div class=item>🪙 코인<br><b>${coins}</b></div><div class=item>🔥 연승<br><b>0연승</b></div></div><h3>계정 정보</h3><p>이름: ${esc(user||'게스트')}</p><p>계정 상태: ${logged?'데모 로그인':'게스트'}</p><p>친구 목록과 기록 저장은 서버 연결 전까지 이 브라우저의 데모 정보입니다.</p><button class=primary id=profileLogin>로그인 / 이름 설정</button>`}else if(k==='login'){
+title=logged?'계정':'로그인';
+body=logged
+?`<p>${esc(user)}님으로 로그인되어 있어요.</p><button class="primary" id="logoutNow">로그아웃</button>`
+:`<p>이메일로 회원가입하거나 로그인하세요.</p>
+<label class="field">이메일<input id="u" type="email" autocomplete="email" placeholder="이메일 주소"></label>
+<label class="field">비밀번호<input id="pw" type="password" autocomplete="current-password" placeholder="6자 이상"></label>
+<button class="primary" id="registerNow">회원가입</button>
+<button class="primary" id="loginNow">로그인</button>
+<p id="authMsg" style="font-size:12px"></p>`
+}
 if(k==='shop'){title='🛒 상점';body=`<h3>🎁 랜덤 아이템 상자</h3><p>상자 하나에 100코인! 탄창·속도·방어력·공격력 강화 또는 공격력을 높여 주는 무기가 나와요.</p><div class=items><div class=item><b>🎁 랜덤 상자</b><p>강화 아이템 또는 무기 1개 획득</p>🪙 100<button id=buyBox ${coins<100?'disabled':''}>상자 열기</button></div></div><div id=boxResult></div><h3>🔫 캐릭터</h3><p style="font-size:12px">무기에 따라 체력과 공격력이 달라요.</p><div class="items">${Object.entries(roster).map(([n,r])=>`<div class="item"><b>${n}</b><p>${r.desc}</p>🪙 ${r.cost}<button data-buy="${n}" data-type="character" ${ownedChars.includes(n)||coins<r.cost?'disabled':''}>${ownedChars.includes(n)?'보유 중':'구입'}</button></div>`).join('')}</div><h3>🎨 스킨</h3><div class="items">${card('딸기 카피바라','분홍빛 스킨',80,'skin')}${card('우주 카피바라','우주 탐험가 스킨',150,'skin')}${card('황금 카피바라','황금빛 스킨',180,'skin')}${card('민트 카피바라','민트빛 스킨',100,'skin')}${card('유령 카피바라','유령 테마 스킨',130,'skin')}${card('파워 업그레이드','공격력 증가',60,'damage')}${card('가벼운 발','이동속도 증가',60,'speed')}</div>`}
 if(k==='inventory'){title='🎒 인벤토리';body=`<h3>⚔️ 무기 인벤토리</h3><p>무기를 장착하면 공격 피해가 증가해요.</p><div class=items>${itemInventory.filter(i=>i.type==='weapon').map((i,idx)=>`<div class=item><b>${esc(i.name)}</b><p>공격력 +${i.bonus}%</p><button data-equipweapon="${idx}">${equippedWeapon===i.id?'장착 중':'장착하기'}</button></div>`).join('')||'<p>아직 무기가 없어요. 상점에서 랜덤 상자를 열어 보세요!</p>'}</div><h3>🧪 강화 아이템</h3><div class=items>${['ammo','speed','defense','attack'].map(k=>{let i=equippedItems[k];return `<div class=item><b>${({ammo:'🔋 대용량 탄창',speed:'💨 속도 부츠',defense:'🛡️ 방어 갑옷',attack:'💥 공격력 칩'})[k]}</b><p>${i?esc(i.desc):'미보유'}</p>${i?'<span>장착 중</span>':'<span>상점 상자에서 획득 가능</span>'}</div>`}).join('')}</div><h3>🦫 캐릭터</h3><div class="items">${ownedChars.map(n=>`<div class="item"><b>${esc(n)}</b><p>${character===n?'현재 선택 중':roster[n].desc}</p><button data-char="${esc(n)}">${character===n?'선택 중':'선택하기'}</button></div>`).join('')}</div><h3>🎨 스킨</h3><div class="items">${owned.map(s=>`<div class="item"><b>${esc(s)}</b><p>${skin===s?'현재 장착 중':'보유 스킨'}</p><button data-equip="${esc(s)}">${skin===s?'장착 중':'장착하기'}</button></div>`).join('')}</div>`}
 if(k==='upgrade'){title='⬆️ 업그레이드';body=`<div class="items">${card('공격력 레벨 '+upD,'총알 피해 증가',60,'damage')}${card('이동속도 레벨 '+upS,'이동속도 증가',60,'speed')}</div>`}
 if(k==='missions'){title='📜 미션';body=`<div class="items">${missionCard('plays','🎯 전투 참가',1,25)}${missionCard('kills','💥 적 처치',3,40)}${missionCard('wins','🏆 승리하기',1,50)}</div>`}
-$('content').innerHTML=`<h2>${title}</h2>${body}`;$('modal').classList.remove('hidden');$('loginNow')?.addEventListener('click',()=>{let u=$('u').value.trim(),pw=$('pw').value;if(!u||!pw){alert('아이디와 비밀번호를 입력해 주세요.');return}logged=true;user=u;$('modal').classList.add('hidden');menuUpdate()});$('logoutNow')?.addEventListener('click',()=>{logged=false;user='';$('modal').classList.add('hidden');menuUpdate()});document.querySelectorAll('[data-buy]').forEach(b=>b.onclick=()=>buy(b.dataset.buy,b.dataset.type));document.querySelectorAll('[data-equip]').forEach(b=>b.onclick=()=>{skin=b.dataset.equip;menuUpdate();panel('inventory')});document.querySelectorAll('[data-char]').forEach(b=>b.onclick=()=>{character=b.dataset.char;menuUpdate();panel('inventory')});document.querySelectorAll('[data-equipweapon]').forEach(b=>b.onclick=()=>{let i=itemInventory.filter(x=>x.type==='weapon')[Number(b.dataset.equipweapon)];if(i){equippedWeapon=i.id;menuUpdate();panel('inventory')}});$('buyBox')?.addEventListener('click',openRandomBox);document.querySelectorAll('[data-mission]').forEach(b=>b.onclick=()=>{let x=b.dataset.mission,need={plays:1,kills:3,wins:1}[x];if((mission[x]||0)<need||claimedM[x])return;claimedM[x]=true;coins+={plays:25,kills:40,wins:50}[x];menuUpdate();panel('missions')})}
+$('content').innerHTML=`<h2>${title}</h2>${body}`;$('modal').classList.remove('hidden');
+$('registerNow')?.addEventListener('click',async()=>{
+  const email=$('u').value.trim();
+  const pw=$('pw').value;
+  const msg=$('authMsg');
+  const fb=window.fbOnline;
+  if(!email||!pw){msg.textContent='이메일과 비밀번호를 입력해 주세요.';return}
+  if(!fb){msg.textContent='Firebase 연결을 확인해 주세요.';return}
+  try{
+    const result=await fb.createUserWithEmailAndPassword(fb.auth,email,pw);
+    logged=true;
+    user=result.user.email;
+    $('modal').classList.add('hidden');
+    menuUpdate();
+    alert('회원가입 성공! 🦫');
+  }catch(e){
+    msg.textContent='회원가입 실패: '+e.message;
+  }
+});
+
+$('loginNow')?.addEventListener('click',async()=>{
+  const email=$('u').value.trim();
+  const pw=$('pw').value;
+  const msg=$('authMsg');
+  const fb=window.fbOnline;
+  if(!email||!pw){msg.textContent='이메일과 비밀번호를 입력해 주세요.';return}
+  if(!fb){msg.textContent='Firebase 연결을 확인해 주세요.';return}
+  try{
+    const result=await fb.signInWithEmailAndPassword(fb.auth,email,pw);
+    logged=true;
+    user=result.user.email;
+    $('modal').classList.add('hidden');
+    menuUpdate();
+  }catch(e){
+    msg.textContent='로그인 실패: '+e.message;
+  }
+});
+
+$('logoutNow')?.addEventListener('click',async()=>{
+  const fb=window.fbOnline;
+  try{
+    if(fb) await fb.signOut(fb.auth);
+    logged=false;
+    user='';
+    $('modal').classList.add('hidden');
+    menuUpdate();
+  }catch(e){
+    alert('로그아웃 실패: '+e.message);
+  }
+});
+document.querySelectorAll('[data-buy]').forEach(b=>b.onclick=()=>buy(b.dataset.buy,b.dataset.type));document.querySelectorAll('[data-equip]').forEach(b=>b.onclick=()=>{skin=b.dataset.equip;menuUpdate();panel('inventory')});document.querySelectorAll('[data-char]').forEach(b=>b.onclick=()=>{character=b.dataset.char;menuUpdate();panel('inventory')});document.querySelectorAll('[data-equipweapon]').forEach(b=>b.onclick=()=>{let i=itemInventory.filter(x=>x.type==='weapon')[Number(b.dataset.equipweapon)];if(i){equippedWeapon=i.id;menuUpdate();panel('inventory')}});$('buyBox')?.addEventListener('click',openRandomBox);document.querySelectorAll('[data-mission]').forEach(b=>b.onclick=()=>{let x=b.dataset.mission,need={plays:1,kills:3,wins:1}[x];if((mission[x]||0)<need||claimedM[x])return;claimedM[x]=true;coins+={plays:25,kills:40,wins:50}[x];menuUpdate();panel('missions')})}
 function openRandomBox(){if(coins<100)return;coins-=100;const pool=[{type:'ammo',name:'대용량 탄창',desc:'최대 탄약 +2',value:2},{type:'speed',name:'속도 부츠',desc:'이동 속도 +15%',value:15},{type:'defense',name:'방어 갑옷',desc:'받는 피해 20% 감소',value:20},{type:'attack',name:'공격력 칩',desc:'공격력 +15%',value:15},{type:'weapon',name:'가시 발사기',desc:'공격 피해 +20%',bonus:20},{type:'weapon',name:'황금 블래스터',desc:'공격 피해 +35%',bonus:35},{type:'weapon',name:'별빛 대포',desc:'공격 피해 +50%',bonus:50}];let got=pool[Math.floor(Math.random()*pool.length)];if(got.type==='weapon'){got.id='w'+Date.now()+Math.random().toString(16).slice(2);itemInventory.push(got)}else{equippedItems[got.type]=got;itemInventory.push({...got,id:'i'+Date.now()})}saveGame();panel('shop');let r=$('boxResult');if(r)r.innerHTML=`<div class=item style="margin-top:10px"><b>🎉 획득: ${esc(got.name)}</b><p>${esc(got.desc)}</p>${got.type==='weapon'?'<p>인벤토리에서 장착할 수 있어요!</p>':'<p>강화 효과가 적용됐어요!</p>'}</div>`;menuUpdate()}function missionCard(k,name,n,reward){return `<div class="item"><b>${name}</b><p>${mission[k]||0}/${n}</p>보상 ${reward} 코인<button data-mission="${k}" ${(mission[k]||0)<n||claimedM[k]?'disabled':''}>보상 받기</button></div>`}
 function buy(n,t){let cost=t==='character'?(roster[n]?.cost||999):t==='skin'?({'딸기 카피바라':80,'우주 카피바라':150,'황금 카피바라':180,'민트 카피바라':100,'유령 카피바라':130}[n]||60):60;if(coins<cost)return;coins-=cost;if(t==='character'){if(!ownedChars.includes(n))ownedChars.push(n);character=n}else if(t==='skin'){if(!owned.includes(n))owned.push(n);skin=n}else if(t==='damage')upD++;else upS++;menuUpdate();panel('shop')}function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 document.querySelectorAll('[data-panel]').forEach(b=>b.onclick=()=>panel(b.dataset.panel));$('loginBtn').onclick=()=>logged?(logged=false,user='',menuUpdate()):panel('login');$('close').onclick=()=>$('modal').classList.add('hidden');document.addEventListener('click',e=>{if(e.target.id==='addFriend'){let id=$('friendId').value.trim();$('teamMsg').textContent=id?'친구 ID '+id+' 입력 완료(데모). 실제 친구 초대는 서버 연결이 필요합니다.':'친구 ID를 입력해 주세요.'}if(e.target.id==='friendly'||e.target.id==='normal'){$('teamMsg').textContent=e.target.id==='friendly'?'친선경기 선택: 나 대 친구. 온라인 서버 연결 후 이용할 수 있어요.':'일반경기 선택: 나와 친구 대 상대. 온라인 서버 연결 후 이용할 수 있어요.'}if(e.target.id==='profileLogin'){panel('login')}});$('rewardBtn').onclick=()=>{if(!claimed){claimed=true;coins+=50;trophies+=5;menuUpdate()}};$('playBtn').onclick=start;
