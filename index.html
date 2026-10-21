@@ -227,21 +227,34 @@ el.querySelector('#v11Online').onclick = () => {
 
     const message = controls.querySelector('#v11RoomMessage');
 
+   
     controls.querySelector('#v11CreateRoom').onclick = async () => {
       try {
-        if (!window.capybaraRooms) {
-          throw new Error('온라인 방 코드가 없어. 페이지를 새로고침해 줘.');
+        const code = await window.capybaraRooms.createRoom();
+
+        window.capybaraCurrentRoom = code;
+
+        message.textContent =
+          '방 생성 성공! 친구에게 방 코드 ' + code + ' 를 알려 줘. 친구가 참가하면 연결 상태가 갱신돼.';
+
+        controls.querySelector('#v11JoinCode').value = code;
+
+        if (window.capybaraRoomUnsubscribe) {
+          window.capybaraRoomUnsubscribe();
         }
 
-        const code = await window.capybaraRooms.createRoom();
-        message.textContent = '방 생성 성공! 친구에게 이 코드를 알려 줘: ' + code;
-        controls.querySelector('#v11JoinCode').value = code;
+        window.capybaraRoomUnsubscribe =
+          window.capybaraRooms.watchRoom(code, (room) => {
+            const count = (room.members || []).length;
+            message.textContent =
+              '방 코드: ' + code + ' | 참가자: ' + count + '/6명';
+          });
+
       } catch (e) {
         message.textContent = '방 생성 실패: ' + e.message;
       }
     };
-
-    controls.querySelector('#v11JoinRoom').onclick = async () => {
+ = async () => {
       try {
         const code = await window.capybaraRooms.joinRoom(
           controls.querySelector('#v11JoinCode').value
