@@ -193,7 +193,8 @@ const v11OldMenuUpdate=menuUpdate;
 menuUpdate=function(){v11OldMenuUpdate();const t=$('trophies');if(t){const holder=t.parentElement;if(holder&&!holder.querySelector('.v11rank')){const r=document.createElement('span');r.className='v11rank';r.style.cssText='display:inline-flex;align-items:center;gap:3px;font-size:10px;color:#ffe083;margin-left:5px';holder.appendChild(r)}const rank=holder&&holder.querySelector('.v11rank');if(rank)rank.innerHTML='🏅 '+capyRankName(trophies)}saveGame()};
 loadGame();menuUpdate();
 window.addEventListener('load',()=>{setTimeout(()=>{loadingScreen.style.opacity='0';loadingScreen.style.transition='opacity .35s';setTimeout(()=>loadingScreen.remove(),380)},250)});
-
+})();
+</script>
 <script>
 /* 카피바라 스타파워즈 - 팀 배정 화면 */
 document.addEventListener('click', function(e) {
