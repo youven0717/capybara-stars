@@ -194,7 +194,7 @@ menuUpdate=function(){v11OldMenuUpdate();const t=$('trophies');if(t){const holde
 loadGame();menuUpdate();
 window.addEventListener('load',()=>{setTimeout(()=>{loadingScreen.style.opacity='0';loadingScreen.style.transition='opacity .35s';setTimeout(()=>loadingScreen.remove(),380)},250)});
 
-
+<script>
 /* 카피바라 스타파워즈 - 팀 배정 화면 */
 document.addEventListener('click', function(e) {
   if (!e.target.closest('#v11Online')) return;
@@ -305,34 +305,6 @@ window.fbOnline = {
 
 console.log("Firebase 연결 준비 완료!");
 </script>
- <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
-import {
-  getFirestore,
-  doc,
-  setDoc,
-  getDoc,
-  onSnapshot,
-  collection,
-  addDoc,
-  updateDoc
-} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 
-const firebaseConfig = {
-  apiKey: "네_기존_API_KEY",
-  authDomain: "capybara-stars.firebaseapp.com",
-  projectId: "capybara-stars",
-  storageBucket: "capybara-stars.firebasestorage.app",
-  messagingSenderId: "404360387673",
-  appId: appId: "1:404360387673:web:46c427cf7a4e407e4fa548"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-window.capybaraFirebase = { app, db, doc, setDoc, getDoc, onSnapshot, collection, addDoc, updateDoc };
-
-console.log("🐹 카피바라 스타즈 Firebase 연결 준비 완료!");
-</script>
 </body>
 </html>
