@@ -1,5 +1,4 @@
-
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><title>카피바라 스타즈 v9</title><style>
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><title>카피바라 스타파워즈</title><style>
 *{box-sizing:border-box}html,body,#app{margin:0;width:100%;height:100%;overflow:hidden;font-family:system-ui,"Malgun Gothic",sans-serif;background:#17343b;color:#fff4d8;touch-action:none}button,input{font:inherit}button{border:0;cursor:pointer;border-radius:12px;font-weight:900;padding:10px}canvas{display:block;width:100%;height:100%}.hidden{display:none!important}#menu{position:absolute;inset:0;background:radial-gradient(#3d7969,#17343b);z-index:5}.top{height:60px;background:#10272be0;display:flex;align-items:center;justify-content:space-between;padding:9px;gap:8px}.logo{font-size:clamp(17px,4vw,26px);font-weight:1000;color:#ffd65b}.top button{background:#fff0c9;color:#23413a}.grid{height:calc(100% - 60px);display:grid;grid-template-columns:82px 1fr 94px;gap:8px;padding:8px}.nav{display:flex;flex-direction:column;justify-content:center;gap:10px}.nav button{background:#dceac9;color:#26483e;padding:12px 3px;font-size:12px;box-shadow:0 4px #819b76}.stage{position:relative;border-radius:22px;background:radial-gradient(#609775,#244c4e);display:flex;align-items:center;justify-content:center;overflow:hidden}.stage:before{content:"";position:absolute;inset:0;background-image:radial-gradient(#e7f5c41a 1px,transparent 1px);background-size:22px 22px}.brand{position:absolute;top:10%;font-size:clamp(22px,5vw,38px);font-weight:1000;color:#ffe082;text-shadow:0 4px #9e5c29;white-space:nowrap}.hero{z-index:1;text-align:center;font-weight:900}.hero canvas{width:min(43vw,220px);height:min(45vh,270px)}.right{display:flex;flex-direction:column;gap:10px}.card{background:#17353bd9;border:1px solid #ffffff26;border-radius:13px;padding:8px 3px;text-align:center;font-size:11px}.play{margin-top:auto;background:#ffd65b;color:#493011;font-size:18px;padding:15px 3px;box-shadow:0 5px #b47b2b}.modal{position:absolute;inset:0;z-index:10;background:#06191dcc;display:flex;align-items:center;justify-content:center;padding:15px}.box{width:min(430px,100%);max-height:90%;overflow:auto;background:linear-gradient(145deg,#386b65,#173840);border:2px solid #ffffff32;border-radius:22px;padding:18px}.box h2{color:#ffd65b;margin:0 0 10px}.close{float:right;background:#e4ebd5}.items{display:grid;grid-template-columns:1fr 1fr;gap:8px}.item p{line-height:1.35;margin:6px 0}.box h3{margin:14px 0 8px;color:#d9f2ca}.item button:disabled{opacity:.48;cursor:default}.item{background:#214a4c;border:1px solid #ffffff2b;border-radius:12px;padding:10px;font-size:12px}.item button{width:100%;margin-top:7px;background:#ffd65b}.field{display:block;margin:10px 0;font-size:12px}.field input{width:100%;padding:11px;margin-top:4px;border-radius:9px;border:0}.primary{width:100%;margin-top:8px;background:#ffd65b;color:#493011}#hud{position:absolute;inset:0;z-index:3;pointer-events:none}.hudtop{position:absolute;top:8px;left:8px;right:8px;display:flex;justify-content:space-between;gap:5px}.hudbox{background:#10272de8;border-radius:10px;padding:7px;font-size:11px;font-weight:900}.hudtop button{pointer-events:auto;background:#fff0c9;color:#203d39;font-size:10px;padding:8px}#exitGame{position:absolute;top:55px;left:8px;pointer-events:auto;background:#fff0c9;color:#203d39;font-size:11px}#joy{position:absolute;left:17px;bottom:22px;width:112px;height:112px;border-radius:50%;background:#eaffed20;border:2px solid #eaffed70;pointer-events:auto}#knob{position:absolute;left:30px;top:30px;width:48px;height:48px;border-radius:50%;background:#efffe2dc;border:2px solid white}#aimJoy{position:absolute;right:112px;bottom:25px;width:92px;height:92px;border-radius:50%;background:#6dbaff25;border:2px solid #8bd2ffb0;pointer-events:auto;touch-action:none}#aimKnob{position:absolute;left:25px;top:25px;width:38px;height:38px;border-radius:50%;background:#8fd4ffdf;border:2px solid #eaf8ff;box-shadow:0 0 8px #49aaff}#fire{position:absolute;right:17px;bottom:25px;width:78px;height:78px;border-radius:50%;background:#ff9aa8;color:#552330;border:4px solid #ffe2e4;pointer-events:auto}#ult{position:absolute;right:104px;bottom:32px;width:62px;height:62px;border-radius:50%;background:#596365;color:white;pointer-events:auto;font-size:11px}#ult.ready{background:#b46cff;box-shadow:0 0 18px #c58cff}#aimNote{position:absolute;top:70px;left:50%;transform:translateX(-50%);background:#10272ddd;border-radius:9px;padding:6px;font-size:10px;white-space:nowrap}
 .playrow{display:flex;flex-direction:column;gap:7px;margin-top:auto}.modebtn,.mapbtn{background:#b8e6dc;color:#173b39;font-size:11px;padding:9px 3px}.play{margin-top:0!important}</style></head><body><div id="app"><canvas id="game"></canvas><div id="menu"><div class="top"><div class="logo">🦫 카피바라 스타즈</div><span>🏆 <b id="trophies">0</b></span><button id="devBtn">🧪 코드</button><button id="loginBtn">로그인</button></div><div class="grid"><div class="nav"><button data-panel="shop">🛒<br>상점</button><button data-panel="inventory">🎒<br>인벤토리</button><button data-panel="missions">📜<br>미션</button><button data-panel="upgrade">⬆️<br>업그레이드</button><button data-panel="team">👥<br>팀 추가</button><button data-panel="mypage">👤<br>마이 페이지</button></div><div class="stage"><div class="brand">CAPYBARA STARS</div><div class="hero"><canvas id="heroCanvas"></canvas><div id="heroName">신입 카피바라</div><small id="heroTag">레벨 1 · 기본 스킨</small><p>🪙 <b id="coins">100</b> 코인</p></div></div><div class="right"><div class="card">⭐ 최고 기록<br><b id="best">0</b> 트로피</div><div class="card">🎁 오늘의 보상<br><span id="rewardStatus">받을 수 있음</span><button id="rewardBtn">받기</button></div><div class="playrow"><button class="modebtn" id="modeBtn">🎮 모드: 녹아웃</button><button class="mapbtn" id="mapBtn">🗺️ 맵: 초원</button><button class="play" id="playBtn">▶ 플레이</button></div></div></div></div>
 <div id="modal" class="modal hidden"><div class="box"><button class="close" id="close">닫기 ✕</button><div id="content"></div></div></div>
@@ -49,7 +48,7 @@ function draw(){ctx.clearRect(0,0,W,H);if(view==='first'){ctx.save();ctx.transla
 function loop(now){if(!running)return;let dt=Math.min((now-last)/1000,.035);last=now;update(dt);if(running){draw();requestAnimationFrame(loop)}}resize();menuUpdate();draw()
 // V8: 다양한 모드·맵, 근접/투척/힐러, AI 탄약 및 자동 저장
 let devInvincible=false,gameMode='knockout',mapChoice=0,puddles=[],gems=[],shots=[],slashes=[],ball={x:0,y:0,vx:0,vy:0,held:null},saveTick=0;
-const modeNames={knockout:'녹아웃',brawlball:'브롤 볼',gemgrab:'젬 그렘'},mapNames=['초원','사막 유적','얼음 동굴','정글 사원','용암 협곡'];
+const modeNames={knockout:'녹아웃',brawlball:'브롤 볼',gemgrab:'젬 그렘',defender:'디펜서'},mapNames=['초원','사막 유적','얼음 동굴','정글 사원','용암 협곡'];
 function saveGame(){try{localStorage.setItem('capybaraStarsSaveV8',JSON.stringify({coins,trophies,best,level,owned,skin,upD,upS,claimed,logged,user,mission,claimedM,ownedChars,character,gameMode,mapChoice,itemInventory,equippedWeapon,equippedItems}))}catch(e){}}
 function loadGame(){try{let d=JSON.parse(localStorage.getItem('capybaraStarsSaveV8')||'null');if(d)for(let k of ['coins','trophies','best','level','owned','skin','upD','upS','claimed','logged','user','mission','claimedM','ownedChars','character','gameMode','mapChoice','itemInventory','equippedWeapon','equippedItems'])if(d[k]!==undefined)eval(k+'=d[k]')}catch(e){};if($('modeBtn'))$('modeBtn').textContent='🎮 모드: '+(modeNames[gameMode]||'녹아웃');if($('mapBtn'))$('mapBtn').textContent='🗺️ 맵: '+(mapNames[mapChoice]||'초원')}
 $('modeBtn').onclick=()=>{let a=['knockout','brawlball','gemgrab'];gameMode=a[(a.indexOf(gameMode)+1)%a.length];$('modeBtn').textContent='🎮 모드: '+modeNames[gameMode];$('aimNote').textContent=gameMode==='brawlball'?'브롤 볼: 공을 상대 골대로 밀어 넣어!':gameMode==='gemgrab'?'젬 그렘: 보석을 모아!':'녹아웃: 상대 팀을 제압해!';saveGame()};
@@ -106,45 +105,93 @@ $('devBtn').onclick=()=>{$('content').innerHTML='<h2>🧪 개발자 코드</h2><
 const v10Style=document.createElement('style');v10Style.textContent=`#victoryCeremony{position:fixed;inset:0;z-index:99999;background:radial-gradient(circle at center,#284f5af7,#081b2bf7);display:flex;align-items:center;justify-content:center;color:#fff;text-align:center;font-family:system-ui,sans-serif}.victoryCard{width:min(92vw,430px);padding:22px;border:3px solid #ffe07b;border-radius:24px;background:linear-gradient(145deg,#224c51,#122a39);box-shadow:0 0 35px #ffd65b66}.victoryTrophies{font-size:clamp(30px,8vw,46px);font-weight:1000;color:#ffe16b;text-shadow:0 3px #8b5425;position:absolute;top:5vh;left:5vw}.victoryDance{font-size:100px;animation:capyVictoryDance .65s infinite alternate;display:inline-block;filter:drop-shadow(0 8px 0 #0004)}.victoryMove{font-size:19px;font-weight:900;color:#b6f8ff}.victoryCard button{background:#ffe16b;color:#382b17;font-size:18px;font-weight:900;border-radius:12px;padding:12px 30px;margin-top:12px}@keyframes capyVictoryDance{from{transform:translateY(0) rotate(-13deg) scale(.95)}to{transform:translateY(-22px) rotate(13deg) scale(1.1)}}.dance-기관단총카피바라{animation:spinVictory .7s infinite alternate}.dance-샷건카피바라{animation:bigJump .55s infinite alternate}.dance-저격총카피바라{animation:sniperPose 1s infinite alternate}.dance-기관총카피바라{animation:fastShake .18s infinite alternate}.dance-로켓런처카피바라{animation:bigJump .4s infinite alternate}.dance-방패카피바라{animation:shieldTurn .8s infinite alternate}.dance-레이저카피바라{animation:spinVictory .5s infinite alternate}.dance-검객카피바라{animation:swordDance .45s infinite alternate}.dance-투척수카피바라{animation:throwDance .55s infinite alternate}.dance-힐러카피바라{animation:softFloat 1s infinite alternate}.dance-시리우스{animation:cosmicDance .35s infinite alternate}@keyframes spinVictory{to{transform:rotate(360deg) scale(1.12)}}@keyframes bigJump{to{transform:translateY(-35px) scale(1.2)}}@keyframes sniperPose{to{transform:translateX(18px) rotate(8deg)}}@keyframes fastShake{to{transform:translateX(7px) rotate(9deg)}}@keyframes shieldTurn{to{transform:rotateY(180deg) scale(1.08)}}@keyframes swordDance{to{transform:rotate(-30deg) translateY(-14px)}}@keyframes throwDance{to{transform:rotate(25deg) translateY(-18px)}}@keyframes softFloat{to{transform:translateY(-18px) scale(1.08)}}@keyframes cosmicDance{to{transform:rotate(22deg) translateY(-28px) scale(1.25);filter:drop-shadow(0 0 20px #b28cff)}}`;
 document.head.appendChild(v10Style);
 
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
-  import {
-    getFirestore,
-    collection,
-    addDoc,
-    serverTimestamp
-  } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyCyryKLlvjQ0A18namye5PMxa_rku8NmlQ",
-    authDomain: "capybara-stars.firebaseapp.com",
-    projectId: "capybara-stars",
-    storageBucket: "capybara-stars.firebasestorage.app",
-    messagingSenderId: "404360387673",
-    appId: "1:404360387673:web:46c427cf7a4e407e4fa548",
-    measurementId: "G-XRDFGSEVLV"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-
-  window.saveCapybaraOnline = async function(nickname, coins) {
-    try {
-      await addDoc(collection(db, "players"), {
-        nickname: String(nickname),
-        coins: Number(coins),
-        updatedAt: serverTimestamp()
-      });
-      alert("온라인 저장 성공!");
-    } catch (error) {
-      console.error(error);
-      alert("저장 실패: Firebase 설정과 데이터베이스 규칙을 확인해 줘.");
-    }
-  };
-
-  console.log("Capybara Stars Firebase 연결 준비 완료!");
-</script>
-</body>
-</html>
+// ===== CAPYBARA STARPOWERS V11 UPGRADE =====
+document.title = '카피바라 스타파워즈';
+document.querySelector('.logo').textContent = '🦫 카피바라 스타파워즈';
+document.querySelector('.brand').textContent = 'CAPYBARA STARPOWERS';
+const v11css = document.createElement('style');
+v11css.textContent = `
+#loadingScreen{position:absolute;inset:0;z-index:100000;background:radial-gradient(circle at 50% 35%,#4b927e,#102b36 75%);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;color:#fff4c7;text-align:center}
+#loadingScreen .loadIcon{font-size:68px;animation:loadHop .7s infinite alternate}
+#loadingScreen .loadBar{width:min(70vw,300px);height:12px;border-radius:20px;background:#ffffff35;overflow:hidden}
+#loadingScreen .loadBar span{display:block;width:35%;height:100%;background:#ffdc69;border-radius:20px;animation:loadRun 1s infinite}
+@keyframes loadHop{to{transform:translateY(-12px) rotate(7deg)}}@keyframes loadRun{from{transform:translateX(-110%)}to{transform:translateX(310%)}}
+#startChooser{position:absolute;inset:0;z-index:1000;background:#071c20eF;display:flex;align-items:center;justify-content:center;padding:16px}
+#startChooser .chooserCard{width:min(440px,100%);background:linear-gradient(145deg,#39796b,#142f3b);border:2px solid #ffe083;border-radius:22px;padding:20px;text-align:center;box-shadow:0 15px 45px #0007}
+#startChooser h2{color:#ffe083;margin:0 0 8px}#startChooser button{width:100%;margin-top:10px;padding:14px;background:#ffdc69;color:#3b2c16;font-size:16px}
+#startChooser .online{background:#8ce7dc}#startChooser select,#startChooser input{width:100%;padding:12px;border-radius:10px;border:0;margin-top:8px}
+#killFeed{position:absolute;top:76px;left:50%;transform:translateX(-50%);z-index:8;display:flex;flex-direction:column;gap:5px;align-items:center;pointer-events:none;width:90%;font-weight:900;text-shadow:0 2px 4px #000}
+.killLine{background:#10272de8;border:1px solid #ffd66b;border-radius:9px;padding:6px 12px;font-size:12px}
+#hud .hudbox{font-size:12px}
+`;
+document.head.appendChild(v11css);
+const loadingScreen=document.createElement('div');
+loadingScreen.id='loadingScreen';
+loadingScreen.innerHTML='<div class="loadIcon">🦫⭐</div><h1>카피바라 스타파워즈</h1><div>게임을 준비하는 중...</div><div class="loadBar"><span></span></div><small>준비가 끝나면 자동으로 시작 화면이 열려요</small>';
+document.body.appendChild(loadingScreen);
+const killFeed=document.createElement('div');killFeed.id='killFeed';document.getElementById('hud').appendChild(killFeed);
+let v11Difficulty='중간',v11Wave=0,v11WaveClock=0,v11SpawnClock=0,v11KillEvents=[],v11LastAlive=new Map(),v11StartTime=0,v11OnlineMode=false;
+const v11Names=['별사탕','초코라떼','달빛토끼','빙하수호자','초원대장','우주감자','반짝별','구름산책','민트초코','작은혜성','햇살친구','은하수','코코넛','눈꽃기사','별빛냥이','푸른파도'];
+const v11Difficulties={'약함':{hp:.65,damage:.6,speed:.75,rate:1.35,spawn:4.8},'중간':{hp:1,damage:1,speed:1,rate:1,spawn:3.7},'잘함':{hp:1.2,damage:1.2,speed:1.08,rate:.85,spawn:3.0},'고수':{hp:1.5,damage:1.45,speed:1.17,rate:.72,spawn:2.5},'고인물':{hp:1.9,damage:1.8,speed:1.27,rate:.62,spawn:2.1},'울트라':{hp:2.5,damage:2.2,speed:1.4,rate:.5,spawn:1.7}};
+const v11OldSave=saveGame;
+saveGame=function(){try{localStorage.setItem('capybaraStarPowersSaveV11',JSON.stringify({coins,trophies,best,level,owned,skin,upD,upS,claimed,logged,user,mission,claimedM,ownedChars,character,gameMode,mapChoice,itemInventory,equippedWeapon,equippedItems,difficulty:v11Difficulty}))}catch(e){}try{v11OldSave()}catch(e){}};
+const v11OldLoad=loadGame;
+loadGame=function(){try{const d=JSON.parse(localStorage.getItem('capybaraStarPowersSaveV11')||'null');if(d){for(const k of ['coins','trophies','best','level','owned','skin','upD','upS','claimed','logged','user','mission','claimedM','ownedChars','character','gameMode','mapChoice','itemInventory','equippedWeapon','equippedItems'])if(d[k]!==undefined)eval(k+'=d[k]');if(d.difficulty)v11Difficulty=d.difficulty}}catch(e){}if(!['defender','knockout'].includes(gameMode))gameMode='defender';if($('modeBtn')){$('modeBtn').textContent='🎮 모드: '+modeNames[gameMode];$('modeBtn').onclick=()=>{gameMode=gameMode==='defender'?'knockout':'defender';$('modeBtn').textContent='🎮 모드: '+modeNames[gameMode];$('aimNote').textContent=gameMode==='defender'?'디펜서: 가운데에서 버티고 사방에서 오는 적을 물리쳐!':'녹아웃: 상대 팀을 모두 제압해!';saveGame()}}if($('mapBtn')){$('mapBtn').textContent='🗺️ 맵: '+(mapNames[mapChoice]||'초원');$('mapBtn').onclick=()=>{mapChoice=(mapChoice+1)%mapNames.length;$('mapBtn').textContent='🗺️ 맵: '+(mapNames[mapChoice]||'초원');makeObs();draw();saveGame()}}};
+function v11ShowChooser(){let old=document.getElementById('startChooser');if(old)old.remove();const el=document.createElement('div');el.id='startChooser';el.innerHTML=`<div class="chooserCard"><h2>🦫 카피바라 스타파워즈</h2><p>플레이 방식을 선택해 줘!</p><button id="v11Online" class="online">🌐 온라인 플레이</button><button id="v11AI">🤖 AI 플레이</button><div id="v11Options" style="display:none;text-align:left;margin-top:12px"><label for="v11Difficulty">AI 난이도</label><select id="v11Difficulty"><option>약함</option><option selected>중간</option><option>잘함</option><option>고수</option><option>고인물</option><option>울트라</option></select><button id="v11StartAI">▶ AI 게임 시작</button></div><div id="v11OnlinePanel" style="display:none;text-align:left;margin-top:12px"><p>온라인 실시간 대전은 서버의 방/플레이어 동기화가 추가로 필요해. 이 버전에서는 아직 연결이 완료되지 않았어.</p><label>친구에게 보낼 게임 링크</label><input readonly value="${location.origin+location.pathname}"><button id="v11CopyLink">링크 복사</button></div><button id="v11Cancel" style="background:#e3eee0">돌아가기</button></div>`;document.getElementById('app').appendChild(el);
+el.querySelector('#v11AI').onclick=()=>{el.querySelector('#v11Options').style.display='block';el.querySelector('#v11OnlinePanel').style.display='none'};
+el.querySelector('#v11Online').onclick=()=>{el.querySelector('#v11OnlinePanel').style.display='block';el.querySelector('#v11Options').style.display='none'};
+el.querySelector('#v11CopyLink').onclick=async()=>{const input=el.querySelector('input');try{await navigator.clipboard.writeText(input.value);el.querySelector('#v11CopyLink').textContent='복사 완료!'}catch(e){input.select();el.querySelector('#v11CopyLink').textContent='주소를 선택해 복사해 줘'}};
+el.querySelector('#v11StartAI').onclick=()=>{v11Difficulty=el.querySelector('#v11Difficulty').value;el.remove();v11OnlineMode=false;start()};
+el.querySelector('#v11Cancel').onclick=()=>el.remove();
+}
+$('playBtn').onclick=v11ShowChooser;
+$('modeBtn').textContent='🛡️ 모드: 디펜서';
+function v11PickName(){return v11Names[Math.floor(Math.random()*v11Names.length)]+(Math.random()<.4?String(Math.floor(Math.random()*90+10)):'')}
+const v11OldActor=actor;
+actor=function(team,x,y,me=false){const a=v11OldActor(team,x,y,me);a.nick=me?(user||'플레이어'):v11PickName();a.anim=0;a.attackAnim=0;a.weaponAngle=0;return a};
+const v11OldReset=reset;
+reset=function(){v11OldReset();v11Wave=1;v11WaveClock=0;v11SpawnClock=2;v11KillEvents=[];v11LastAlive.clear();v11StartTime=performance.now();if(gameMode==='defender'){actors=actors.filter(a=>a.team===0);p=actors.find(a=>a.player)||p;p.x=W*.5;p.y=H*.5;for(const a of actors){a.x=clamp(W*.5+rand(-65,65),25,W-25);a.y=clamp(H*.5+rand(-55,55),90,H-25);a.nick=a.player?(user||'플레이어'):v11PickName();a.maxHp=Math.max(a.maxHp,90);a.hp=a.maxHp;}}else{for(const a of actors){a.nick=a.player?(user||'플레이어'):v11PickName();}}scoreB=0;scoreR=0;hud();saveGame()};
+const v11OldStart=start;
+start=function(){reset();running=true;view='top';$('view').textContent='시점: 위에서';$('menu').classList.add('hidden');$('modal').classList.add('hidden');$('end').classList.add('hidden');$('hud').classList.remove('hidden');$('controls').classList.remove('hidden');$('aimNote').textContent=gameMode==='defender'?'디펜서: 가운데에서 버티고 사방에서 오는 적을 물리쳐!':'녹아웃: 상대 팀을 모두 제압해!';mission.plays++;last=performance.now();requestAnimationFrame(loop)};
+function v11SpawnEnemy(){const d=v11Difficulties[v11Difficulty]||v11Difficulties['중간'];const side=Math.floor(Math.random()*4);let x=side===0?rand(20,W-20):side===1?20:side===2?W-20:rand(20,W-20);let y=side===0?85:side===1?rand(90,H-20):side===2?rand(90,H-20):H-20;const a=actor(1,x,y,false);a.nick=v11PickName();a.player=false;a.team=1;a.maxHp=Math.round(a.maxHp*d.hp*(1+v11Wave*.12));a.hp=a.maxHp;a.damage*=d.damage*(1+v11Wave*.08);a.speed*=d.speed*(1+v11Wave*.025);a.fireRate*=d.rate;a.wave=v11Wave;a.color='#ff4d60';a.r=15;actors.push(a)}
+const v11OldUpdate=update;
+update=function(dt){if(!running)return;if(gameMode==='defender'){v11WaveClock+=dt;v11SpawnClock-=dt;const d=v11Difficulties[v11Difficulty]||v11Difficulties['중간'];if(v11WaveClock>18){v11Wave++;v11WaveClock=0;killFeed.innerHTML=`<div class="killLine">⚠️ 웨이브 ${v11Wave} 시작! 적이 더 강해졌어</div>`}
+if(v11SpawnClock<=0&&actors.filter(a=>a.team===1&&a.alive).length<Math.min(5+v11Wave,16)){v11SpawnEnemy();v11SpawnClock=Math.max(.55,d.spawn-v11Wave*.12)}}
+const before=new Map(actors.map(a=>[a,a.alive]));for(const a of actors){if(a.alive){a.anim=(a.anim||0)+dt*8;if(a.fireT<=0)a.attackAnim=.22;else a.attackAnim=Math.max(0,(a.attackAnim||0)-dt);}}
+v11OldUpdate(dt);
+for(const a of actors){if(before.get(a)===true&&!a.alive&&!a._v11Logged){a._v11Logged=true;const nearby=actors.filter(t=>t.alive&&t.team!==a.team).sort((x,y)=>Math.hypot(x.x-a.x,y.y-a.y)-Math.hypot(y.x-a.x,y.y-a.y))[0];const killer=(a.lastHitBy&&a.lastHitBy.nick)||(nearby&&nearby.nick)||'상대';v11KillEvents.unshift(`${a.nick||'카피바라'}를 ${killer}가 쓰러뜨림`);v11KillEvents=v11KillEvents.slice(0,3);if(a.player){v11ShowKillFeed();}else{v11ShowKillFeed()}}if(a.alive)a._v11Logged=false;}
+v11ShowKillFeed();
+};
+function v11ShowKillFeed(){if(!killFeed)return;killFeed.innerHTML=v11KillEvents.map(s=>`<div class="killLine">${esc(s)}</div>`).join('')}
+const v11OldFire=fire;
+fire=function(a,superShot=false){if(a){a.attackAnim=.28;a.weaponAngle=Math.atan2(aim.y-a.y,aim.x-a.x);a.lastAttackSuper=superShot}return v11OldFire(a,superShot)};
+const v11OldDraw=draw;
+draw=function(){v11OldDraw();if(!running)return;ctx.save();
+for(const a of actors){if(!a.alive)continue;
+const nick=a.nick||(a.player?'플레이어':v11PickName());a.nick=nick;
+ctx.font='bold 11px system-ui';ctx.textAlign='center';const label=nick;const tw=ctx.measureText(label).width+12;ctx.fillStyle='#071a22dd';ctx.fillRect(a.x-tw/2,a.y-59,tw,15);ctx.strokeStyle=a.team===0?'#5cd7ff':'#ff7180';ctx.lineWidth=1.5;ctx.strokeRect(a.x-tw/2,a.y-59,tw,15);ctx.fillStyle='#fff';ctx.fillText(label,a.x,a.y-48);
+// Animated weapon silhouettes differ by role; super effects use a distinct purple/cyan palette.
+const w=a.weapon||'기관단총',anim=Math.max(0,a.attackAnim||0),ang=(a.weaponAngle||a.face||1);
+ctx.save();ctx.translate(a.x,a.y-3);ctx.rotate(Number.isFinite(ang)?ang:0);if(anim>0){ctx.translate(3+Math.sin(anim*35)*4,0)}
+if(['근접','방패'].includes(w)){ctx.strokeStyle=anim>0?'#ffdb63':'#dcecf2';ctx.lineWidth=w==='방패'?7:4;ctx.beginPath();ctx.moveTo(8,0);ctx.lineTo(25+(anim>0?12:0),0);ctx.stroke();if(w==='방패'){ctx.fillStyle='#4dd7f0';ctx.beginPath();ctx.arc(13,0,9,0,Math.PI*2);ctx.fill()}}
+else if(w==='투척'){ctx.fillStyle=anim>0?'#ff9d43':'#ffd26a';ctx.beginPath();ctx.arc(17+(anim>0?8:0),-4,5,0,Math.PI*2);ctx.fill()}
+else if(w==='로켓런처'){ctx.fillStyle='#6b6b75';ctx.fillRect(7,-4,22,8);ctx.fillStyle=anim>0?'#ff6d3d':'#f5c16b';ctx.beginPath();ctx.moveTo(29,-5);ctx.lineTo(36,0);ctx.lineTo(29,5);ctx.fill();if(anim>0){ctx.fillStyle='#ff8a35aa';ctx.beginPath();ctx.arc(5,0,9,0,Math.PI*2);ctx.fill()}}
+else if(w==='레이저'||w==='성운 블래스터'){ctx.strokeStyle=anim>0?'#e36bff':'#56eaff';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(8,0);ctx.lineTo(34,0);ctx.stroke()}
+else{ctx.fillStyle='#3b4c56';ctx.fillRect(7,-4,w==='저격총'?28:20,8);ctx.fillStyle=anim>0?'#ffeb65':'#b8d4df';ctx.fillRect(w==='저격총'?24:20,-2,10,4)}
+ctx.restore();
+if(a.lastAttackSuper&&anim>0){ctx.strokeStyle='#d16cff';ctx.lineWidth=3;ctx.beginPath();ctx.arc(a.x,a.y,24+Math.sin(anim*30)*7,0,Math.PI*2);ctx.stroke()}
+}
+ctx.restore();
+};
+// Make terrain visibly distinct; glacier has ice and snow, grassland has grass details.
+const v11OldArena=arena;
+arena=function(){v11OldArena();if(mapChoice===1||String(mapNames[mapChoice]||'').includes('빙하')){ctx.fillStyle='#9deaff22';ctx.fillRect(0,0,W,H);for(let i=0;i<14;i++){let x=(i*97+33)%W,y=(i*61+20)%H;ctx.fillStyle=i%2?'#eaffff':'#68d8f4';ctx.beginPath();ctx.moveTo(x,y-18);ctx.lineTo(x+12,y+8);ctx.lineTo(x-9,y+11);ctx.closePath();ctx.fill();ctx.strokeStyle='#ffffffaa';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(x,y-14);ctx.lineTo(x+3,y+3);ctx.stroke()}ctx.fillStyle='#e8fbffcc';ctx.font='bold 12px system-ui';ctx.fillText('❄ 빙하 지대',W/2,25)}else{for(let i=0;i<30;i++){let x=(i*71+17)%W,y=(i*43+10)%H;ctx.strokeStyle='#b5e77c88';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x-3,y-7);ctx.moveTo(x,y);ctx.lineTo(x+4,y-6);ctx.stroke()}}};
+// Ensure save on tab close and after important actions.
+window.addEventListener('beforeunload',()=>{try{saveGame()}catch(e){}});
+const v11OldMenuUpdate=menuUpdate;
+menuUpdate=function(){v11OldMenuUpdate();const t=$('trophies');if(t){const holder=t.parentElement;if(holder&&!holder.querySelector('.v11rank')){const r=document.createElement('span');r.className='v11rank';r.style.cssText='display:inline-flex;align-items:center;gap:3px;font-size:10px;color:#ffe083;margin-left:5px';holder.appendChild(r)}const rank=holder&&holder.querySelector('.v11rank');if(rank)rank.innerHTML='🏅 '+capyRankName(trophies)}saveGame()};
+loadGame();menuUpdate();
+window.addEventListener('load',()=>{setTimeout(()=>{loadingScreen.style.opacity='0';loadingScreen.style.transition='opacity .35s';setTimeout(()=>loadingScreen.remove(),380)},250)});
 
 })();</script></body></html>
