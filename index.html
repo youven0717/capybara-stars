@@ -419,6 +419,7 @@ document.getElementById("capyLogin").onclick = async () => {
       auth, emailInput.value.trim(), passwordInput.value
     );
     authMessage.textContent = "로그인 성공!";
+    authPanel.style.display = "none";
   } catch (e) {
     authMessage.textContent = "로그인 오류: " + e.message;
   }
