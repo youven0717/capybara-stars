@@ -200,7 +200,60 @@ const v11OldLoad=loadGame;
 loadGame=function(){try{const d=JSON.parse(localStorage.getItem('capybaraStarPowersSaveV11')||'null');if(d){for(const k of ['coins','trophies','best','level','owned','skin','upD','upS','claimed','logged','user','mission','claimedM','ownedChars','character','gameMode','mapChoice','itemInventory','equippedWeapon','equippedItems'])if(d[k]!==undefined)eval(k+'=d[k]');if(d.difficulty)v11Difficulty=d.difficulty}}catch(e){}if(!['defender','knockout'].includes(gameMode))gameMode='defender';if($('modeBtn')){$('modeBtn').textContent='🎮 모드: '+modeNames[gameMode];$('modeBtn').onclick=()=>{gameMode=gameMode==='defender'?'knockout':'defender';$('modeBtn').textContent='🎮 모드: '+modeNames[gameMode];$('aimNote').textContent=gameMode==='defender'?'디펜서: 가운데에서 버티고 사방에서 오는 적을 물리쳐!':'녹아웃: 상대 팀을 모두 제압해!';saveGame()}}if($('mapBtn')){$('mapBtn').textContent='🗺️ 맵: '+(mapNames[mapChoice]||'초원');$('mapBtn').onclick=()=>{mapChoice=(mapChoice+1)%mapNames.length;$('mapBtn').textContent='🗺️ 맵: '+(mapNames[mapChoice]||'초원');makeObs();draw();saveGame()}}};
 function v11ShowChooser(){let old=document.getElementById('startChooser');if(old)old.remove();const el=document.createElement('div');el.id='startChooser';el.innerHTML=`<div class="chooserCard"><h2>🦫 카피바라 스타파워즈</h2><p>플레이 방식을 선택해 줘!</p><button id="v11Online" class="online">🌐 온라인 플레이</button><button id="v11AI">🤖 AI 플레이</button><div id="v11Options" style="display:none;text-align:left;margin-top:12px"><label for="v11Difficulty">AI 난이도</label><select id="v11Difficulty"><option>약함</option><option selected>중간</option><option>잘함</option><option>고수</option><option>고인물</option><option>울트라</option></select><button id="v11StartAI">▶ AI 게임 시작</button></div><div id="v11OnlinePanel" style="display:none;text-align:left;margin-top:12px"><p>온라인 실시간 대전은 서버의 방/플레이어 동기화가 추가로 필요해. 이 버전에서는 아직 연결이 완료되지 않았어.</p><label>친구에게 보낼 게임 링크</label><input readonly value="${location.origin+location.pathname}"><button id="v11CopyLink">링크 복사</button></div><button id="v11Cancel" style="background:#e3eee0">돌아가기</button></div>`;document.getElementById('app').appendChild(el);
 el.querySelector('#v11AI').onclick=()=>{el.querySelector('#v11Options').style.display='block';el.querySelector('#v11OnlinePanel').style.display='none'};
-el.querySelector('#v11Online').onclick=()=>{el.querySelector('#v11OnlinePanel').style.display='block';el.querySelector('#v11Options').style.display='none'};
+
+el.querySelector('#v11Online').onclick = () => {
+  const panel = el.querySelector('#v11OnlinePanel');
+  panel.style.display = 'block';
+  el.querySelector('#v11Options').style.display = 'none';
+
+  let controls = panel.querySelector('#v11RoomControls');
+
+  if (!controls) {
+    controls = document.createElement('div');
+    controls.id = 'v11RoomControls';
+    controls.style.cssText = 'margin-top:12px;padding:12px;background:#fff3d6;border-radius:10px;color:#333';
+
+    controls.innerHTML = `
+      <h3>🎮 온라인 게임 방</h3>
+      <button id="v11CreateRoom">🏠 방 만들기</button>
+      <hr>
+      <input id="v11JoinCode" placeholder="친구의 방 코드"
+        maxlength="6" style="padding:10px;width:130px">
+      <button id="v11JoinRoom">🚪 방 참가</button>
+      <p id="v11RoomMessage">로그인한 뒤 방을 만들거나 참가해 줘.</p>
+    `;
+
+    panel.appendChild(controls);
+
+    const message = controls.querySelector('#v11RoomMessage');
+
+    controls.querySelector('#v11CreateRoom').onclick = async () => {
+      try {
+        if (!window.capybaraRooms) {
+          throw new Error('온라인 방 코드가 없어. 페이지를 새로고침해 줘.');
+        }
+
+        const code = await window.capybaraRooms.createRoom();
+        message.textContent = '방 생성 성공! 친구에게 이 코드를 알려 줘: ' + code;
+        controls.querySelector('#v11JoinCode').value = code;
+      } catch (e) {
+        message.textContent = '방 생성 실패: ' + e.message;
+      }
+    };
+
+    controls.querySelector('#v11JoinRoom').onclick = async () => {
+      try {
+        const code = await window.capybaraRooms.joinRoom(
+          controls.querySelector('#v11JoinCode').value
+        );
+        message.textContent = '방 참가 성공! 방 코드: ' + code;
+      } catch (e) {
+        message.textContent = '방 참가 실패: ' + e.message;
+      }
+    };
+  }
+};
+
 el.querySelector('#v11CopyLink').onclick=async()=>{const input=el.querySelector('input');try{await navigator.clipboard.writeText(input.value);el.querySelector('#v11CopyLink').textContent='복사 완료!'}catch(e){input.select();el.querySelector('#v11CopyLink').textContent='주소를 선택해 복사해 줘'}};
 el.querySelector('#v11StartAI').onclick=()=>{v11Difficulty=el.querySelector('#v11Difficulty').value;el.remove();v11OnlineMode=false;start()};
 el.querySelector('#v11Cancel').onclick=()=>el.remove();
