@@ -254,11 +254,31 @@ el.querySelector('#v11Online').onclick = () => {
         message.textContent = '방 생성 실패: ' + e.message;
       }
     };
- = async () => {
-      try {
-       controls.querySelector('#v11JoinRoom').onclick = async () => {
-          controls.querySelector('#v11JoinCode').value
-        );
+ 
+      controls.querySelector('#v11JoinRoom').onclick = async () => {
+        try {
+          const code = await window.capybaraRooms.joinRoom(
+            controls.querySelector('#v11JoinCode').value
+          );
+
+          window.capybaraCurrentRoom = code;
+          message.textContent = '방 참가 성공! 방 코드: ' + code;
+
+          if (window.capybaraRoomUnsubscribe) {
+            window.capybaraRoomUnsubscribe();
+          }
+
+          window.capybaraRoomUnsubscribe =
+            window.capybaraRooms.watchRoom(code, (room) => {
+              const count = (room.members || []).length;
+              message.textContent =
+                '방 코드: ' + code + ' | 참가자: ' + count + '/6명';
+            });
+        } catch (e) {
+          message.textContent = '방 참가 실패: ' + e.message;
+        }
+      };
+
         window.capybaraCurrentRoom = code;
 
 message.textContent = '방 참가 성공! 방 코드: ' + code;
