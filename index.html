@@ -332,10 +332,14 @@ document.addEventListener('click', function(e) {
     result.innerHTML = html;
   };
 });
- 
+const firebaseConfig = {
+  apiKey: "AIzaSyCyryKLlvjQ0A18namye5PMxa_rku8NmlQ",
+  authDomain: "capybara-stars.firebaseapp.com",
+  projectId: "capybara-stars",
+  storageBucket: "capybara-stars.firebasestorage.app",
+  messagingSenderId: "404360387673",
   appId: "1:404360387673:web:46c427cf7a4e407e4fa548"
 };
-
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
