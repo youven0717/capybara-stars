@@ -272,12 +272,21 @@ document.addEventListener('click', function(e) {
     result.innerHTML = html;
   };
 });
-</script>
- <script type="module">
-import { initializeApp } from
-  "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
-import {
-  getFirestore,
+ 
+  appId: "1:404360387673:web:46c427cf7a4e407e4fa548"
+};
+
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+window.fbOnline = {
+  auth,
+  db,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
   doc,
   setDoc,
   getDoc,
@@ -285,24 +294,64 @@ import {
   collection,
   addDoc,
   updateDoc
-} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyCyryKLlvjQ0A18namye5PMxa_rku8NmlQ",
-  authDomain: "capybara-stars.firebaseapp.com",
-  projectId: "capybara-stars",
-  storageBucket: "capybara-stars.firebasestorage.app",
-  messagingSenderId: "404360387673",
-  appId: "1:404360387673:web:46c427cf7a4e407e4fa548"
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+const authPanel = document.createElement("div");
+authPanel.id = "capybaraAuthPanel";
+authPanel.style.cssText =
+  "position:relative;z-index:9999;background:#fff3d6;padding:16px;margin:12px auto;max-width:380px;border-radius:14px;color:#333;";
 
-window.fbOnline = {
-  db, doc, setDoc, getDoc, onSnapshot,
-  collection, addDoc, updateDoc
+authPanel.innerHTML = `
+  <h3>🦫 카피바라 스타즈 로그인</h3>
+  <input id="capyEmail" type="email" placeholder="이메일"
+    style="box-sizing:border-box;width:100%;padding:10px;margin:5px 0">
+  <input id="capyPassword" type="password" placeholder="비밀번호 (6자 이상)"
+    style="box-sizing:border-box;width:100%;padding:10px;margin:5px 0">
+  <button id="capyRegister">회원가입</button>
+  <button id="capyLogin">로그인</button>
+  <button id="capyLogout">로그아웃</button>
+  <p id="capyAuthMessage">친구와 함께 플레이하려면 계정에 로그인하세요!</p>
+`;
+
+document.body.prepend(authPanel);
+
+const emailInput = document.getElementById("capyEmail");
+const passwordInput = document.getElementById("capyPassword");
+const authMessage = document.getElementById("capyAuthMessage");
+
+document.getElementById("capyRegister").onclick = async () => {
+  try {
+    await createUserWithEmailAndPassword(
+      auth, emailInput.value.trim(), passwordInput.value
+    );
+    authMessage.textContent = "회원가입 성공! 로그인됐어.";
+  } catch (e) {
+    authMessage.textContent = "회원가입 오류: " + e.message;
+  }
 };
+
+document.getElementById("capyLogin").onclick = async () => {
+  try {
+    await signInWithEmailAndPassword(
+      auth, emailInput.value.trim(), passwordInput.value
+    );
+    authMessage.textContent = "로그인 성공!";
+  } catch (e) {
+    authMessage.textContent = "로그인 오류: " + e.message;
+  }
+};
+
+document.getElementById("capyLogout").onclick = async () => {
+  try {
+    await signOut(auth);
+    authMessage.textContent = "로그아웃했어.";
+  } catch (e) {
+    authMessage.textContent = "로그아웃 오류: " + e.message;
+  }
+};
+
+console.log("Firebase 연결 준비 완료!");
+
 
 console.log("Firebase 연결 준비 완료!");
 </script>
