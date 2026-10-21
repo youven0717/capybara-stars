@@ -232,74 +232,7 @@ el.querySelector('#v11Online').onclick = () => {
       try {
         const code = await window.capybaraRooms.createRoom();
 
-        window.capybaraCurrentRoom = code;
-
-        message.textContent =
-          '방 생성 성공! 친구에게 방 코드 ' + code + ' 를 알려 줘. 친구가 참가하면 연결 상태가 갱신돼.';
-
-        controls.querySelector('#v11JoinCode').value = code;
-
-        if (window.capybaraRoomUnsubscribe) {
-          window.capybaraRoomUnsubscribe();
-        }
-
-        window.capybaraRoomUnsubscribe =
-          window.capybaraRooms.watchRoom(code, (room) => {
-            const count = (room.members || []).length;
-            message.textContent =
-              '방 코드: ' + code + ' | 참가자: ' + count + '/6명';
-          });
-
-      } catch (e) {
-        message.textContent = '방 생성 실패: ' + e.message;
-      }
-    };
- 
-      controls.querySelector('#v11JoinRoom').onclick = async () => {
-        try {
-          const code = await window.capybaraRooms.joinRoom(
-            controls.querySelector('#v11JoinCode').value
-          );
-
-          window.capybaraCurrentRoom = code;
-          message.textContent = '방 참가 성공! 방 코드: ' + code;
-
-          if (window.capybaraRoomUnsubscribe) {
-            window.capybaraRoomUnsubscribe();
-          }
-
-          window.capybaraRoomUnsubscribe =
-            window.capybaraRooms.watchRoom(code, (room) => {
-              const count = (room.members || []).length;
-              message.textContent =
-                '방 코드: ' + code + ' | 참가자: ' + count + '/6명';
-            });
-        } catch (e) {
-          message.textContent = '방 참가 실패: ' + e.message;
-        }
-      };
-
-        window.capybaraCurrentRoom = code;
-
-message.textContent = '방 참가 성공! 방 코드: ' + code;
-
-if (window.capybaraRoomUnsubscribe) {
-  window.capybaraRoomUnsubscribe();
-}
-
-window.capybaraRoomUnsubscribe =
-  window.capybaraRooms.watchRoom(code, (room) => {
-    const count = (room.members || []).length;
-    message.textContent =
-      '방 코드: ' + code + ' | 참가자: ' + count + '/6명';
-  });
-      } catch (e) {
-        message.textContent = '방 참가 실패: ' + e.message;
-      }
-    };
-  }
-};
-
+       
 el.querySelector('#v11CopyLink').onclick=async()=>{const input=el.querySelector('input');try{await navigator.clipboard.writeText(input.value);el.querySelector('#v11CopyLink').textContent='복사 완료!'}catch(e){input.select();el.querySelector('#v11CopyLink').textContent='주소를 선택해 복사해 줘'}};
 el.querySelector('#v11StartAI').onclick=()=>{v11Difficulty=el.querySelector('#v11Difficulty').value;el.remove();v11OnlineMode=false;start()};
 el.querySelector('#v11Cancel').onclick=()=>el.remove();
