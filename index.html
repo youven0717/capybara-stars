@@ -194,4 +194,162 @@ menuUpdate=function(){v11OldMenuUpdate();const t=$('trophies');if(t){const holde
 loadGame();menuUpdate();
 window.addEventListener('load',()=>{setTimeout(()=>{loadingScreen.style.opacity='0';loadingScreen.style.transition='opacity .35s';setTimeout(()=>loadingScreen.remove(),380)},250)});
 
+<script>
+/* 카피바라 스타파워즈 - 팀 배정 화면 */
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('#v11Online')) return;
+
+  const panel = document.getElementById('v11OnlinePanel');
+  if (!panel) return;
+
+  panel.style.display = 'block';
+  panel.innerHTML = `
+    <h3>👥 친구 팀 배정</h3>
+    <label>게임 모드</label>
+    <select id="teamMode" style="width:100%;padding:10px">
+      <option value="coop">🤖 AI 협동전 (2~6명)</option>
+      <option value="pvp">⚔️ 3 대 3 대전 (6명)</option>
+    </select>
+
+    <label style="display:block;margin-top:12px">
+      참가자 이름 (쉼표로 구분)
+    </label>
+    <input id="teamNames"
+      style="width:100%;padding:10px;box-sizing:border-box"
+      placeholder="나, 친구1, 친구2">
+
+    <button id="assignTeams"
+      style="width:100%;padding:12px;margin-top:12px">
+      🎲 팀 자동 배정
+    </button>
+    <div id="teamResults" style="margin-top:12px"></div>
+    <p style="font-size:12px">
+      ※ 현재는 팀 배정 화면 기능이야.
+      다른 컴퓨터와의 실시간 공유는 별도 연결이 필요해.
+    </p>
+  `;
+
+  document.getElementById('assignTeams').onclick = function() {
+    const mode = document.getElementById('teamMode').value;
+    const names = document.getElementById('teamNames')
+      .value.split(',')
+      .map(n => n.trim())
+      .filter(Boolean);
+
+    const result = document.getElementById('teamResults');
+
+    if (names.length < 2 || names.length > 6) {
+      result.textContent = '참가자는 2~6명으로 입력해 줘!';
+      return;
+    }
+
+    if (mode === 'pvp' && names.length !== 6) {
+      result.textContent = '3 대 3 대전은 참가자 6명이 필요해!';
+      return;
+    }
+
+    for (let i = names.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [names[i], names[j]] = [names[j], names[i]];
+    }
+
+    let html = '<h3>🎉 팀 배정 결과</h3>';
+
+    if (mode === 'coop') {
+      html += '<h4>🔵 우리 팀 · AI와 대결</h4>';
+      html += names.map(n => `<p>🦫 ${n}</p>`).join('');
+      html += '<p>🤖 상대: AI</p>';
+    } else {
+      html += '<h4>🔴 빨간 팀</h4>';
+      html += names.slice(0, 3)
+        .map(n => `<p>🦫 ${n}</p>`).join('');
+      html += '<h4>🔵 파란 팀</h4>';
+      html += names.slice(3)
+        .map(n => `<p>🦫 ${n}</p>`).join('');
+    }
+
+    result.innerHTML = html;
+  };
+});
+</script>
+</body>
+</html>
+
+<script>
+/* 팀 자동 배정 기능 */
+const teamObserver = new MutationObserver(() => {
+  const msg = document.getElementById('teamMsg');
+  if (!msg || document.getElementById('teamAssignBox')) return;
+
+  const box = document.createElement('div');
+  box.id = 'teamAssignBox';
+  box.innerHTML = `
+    <hr>
+    <h3>🎮 팀 자동 배정</h3>
+    <label>게임 모드</label>
+    <select id="teamModeSelect" class="field">
+      <option value="coop">AI 협동전</option>
+      <option value="pvp">3 대 3 대전</option>
+    </select>
+    <p>참가자 이름을 쉼표로 구분해 입력해 줘.</p>
+    <input id="teamPlayerNames" class="field"
+      placeholder="나, 친구1, 친구2">
+    <button class="primary" id="teamAssignButton">
+      🎲 팀 나누기
+    </button>
+    <div id="teamAssignResult"></div>
+  `;
+  msg.insertAdjacentElement('afterend', box);
+});
+
+teamObserver.observe(document.getElementById('content'), {
+  childList: true,
+  subtree: true
+});
+
+document.addEventListener('click', function(e) {
+  if (e.target.id !== 'teamAssignButton') return;
+
+  const mode = document.getElementById('teamModeSelect').value;
+  const names = document.getElementById('teamPlayerNames')
+    .value.split(',')
+    .map(n => n.trim())
+    .filter(Boolean);
+  const result = document.getElementById('teamAssignResult');
+
+  if (names.length < 2 || names.length > 6) {
+    result.textContent = '참가자는 2~6명으로 입력해 줘!';
+    return;
+  }
+  if (mode === 'pvp' && names.length !== 6) {
+    result.textContent = '3 대 3은 정확히 6명이 필요해!';
+    return;
+  }
+
+  for (let i = names.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [names[i], names[j]] = [names[j], names[i]];
+  }
+
+  if (mode === 'coop') {
+    result.innerHTML = '<h3>🤖 AI 협동 팀</h3>' +
+      names.map(n => '<p>🦫 ' +
+        n.replace(/[&<>"']/g, '') + '</p>').join('') +
+      '<p>상대 팀: AI</p>';
+  } else {
+    result.innerHTML =
+      '<h3>🔴 빨간 팀</h3>' +
+      names.slice(0, 3).map(n =>
+        '<p>🦫 ' + n.replace(/[&<>"']/g, '') + '</p>'
+      ).join('') +
+      '<h3>🔵 파란 팀</h3>' +
+      names.slice(3).map(n =>
+        '<p>🦫 ' + n.replace(/[&<>"']/g, '') + '</p>'
+      ).join('');
+  }
+});
+</script>
+</body>
+</html>
+ 
 })();</script></body></html>
