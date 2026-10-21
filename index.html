@@ -338,18 +338,17 @@ document.addEventListener('click', function(e) {
       '<p>상대 팀: AI</p>';
   } else {
     result.innerHTML =
-      '<h3>🔴 빨간 팀</h3>' +
-      names.slice(0, 3).map(n =>
-        '<p>🦫 ' + n.replace(/[&<>"']/g, '') + '</p>'
-      ).join('') +
-      '<h3>🔵 파란 팀</h3>' +
-      names.slice(3).map(n =>
-        '<p>🦫 ' + n.replace(/[&<>"']/g, '') + '</p>'
-      ).join('');
-  }
-});
-</script>
-</body>
-</html>
- 
-})();</script></body></html>
+       '<h3>🔴 빨간 팀</h3>' +
+       names.slice(0, 3).map(n =>
+         '<p>🦫 ' + n.replace(/[&<>"']/g, '') + '</p>'
+       ).join('') +
+       '<h3>🔵 파란 팀</h3>' +
+       names.slice(3).map(n =>
+         '<p>🦫 ' + n.replace(/[&<>"']/g, '') + '</p>'
+       ).join('');
+   }
+ });
+ </script>
+ </body>
+ </html>
+
